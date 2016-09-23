@@ -18,7 +18,8 @@ class Auth
 		$hashed_password = $password;
 
 		//insert values in users table using insert function
-		$this->db->insert("INSERT INTO users (username, email, password) VALUES (:username, :email, :password)", [':username'=>$username, ':email'=>$email, 'password'=>$hashed_password]);
+		$this->db->insert("INSERT INTO users (username, email, password) 
+		VALUES (:username, :email, :password)", [':username'=>$username, ':email'=>$email, 'password'=>$hashed_password]);
 		//error handling
 		if($this->db->errorMessage == null) return 1;	
 		else 
@@ -45,7 +46,7 @@ class Auth
 		{
 			//username match
 			if($hashed_password == $result['password'])
-				return 1;
+				return $result['id'];
 			else
 			{
 				$this->errorMessage = "Wrong password";
